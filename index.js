@@ -15,6 +15,21 @@ app.get("/guest", (req, res) => {
 });
 
 app.post("/guest", (req, res) => {
+  const { fullname, email, numGuests } = req.body;
+  const errors = [];
+
+  if (!fullname) {
+    errors.push("Please fill out the full name field.");
+  }
+
+  if (!email) {
+    errors.push("Please fill out the email field.");
+  }
+
+  if (!numGuests) {
+    errors.push("Please fill out the field for number of guests.");
+  }
+
   const guest = {
     fullname: req.body.fullname,
     email: req.body.email,
