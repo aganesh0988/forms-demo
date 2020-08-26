@@ -26,14 +26,25 @@ app.post("/guest", (req, res) => {
     errors.push("Please fill out the email field.");
   }
 
-  if (!numGuests) {
+  if (!numGuests || numGuests < 1) {
     errors.push("Please fill out the field for number of guests.");
   }
 
+  if (errors.length > 0) {
+    res.render("guest-form", {
+      title: "Guest Form",
+      errors,
+      email,
+      fullname,
+      numGuests
+    });
+    return;
+  }
+
   const guest = {
-    fullname: req.body.fullname,
-    email: req.body.email,
-    numGuests: req.body.numGuests
+    fullname,
+    email,
+    numGuests
   };
   guests.push(guest);
   res.redirect("/");
